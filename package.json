@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Klique-space/klique/issues"
   },
-  "homepage": "https://github.com/Klique-space/klique#readme"
+  "homepage": "https://github.com/Klique-space/klique#readme",
+  "dependencies": {
+    "vue": "^2.6.12"
+  }
 }
