@@ -1,0 +1,19 @@
+{
+  "name": "klique",
+  "version": "1.0.0",
+  "description": "A web app for HackEd 2021.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Klique-space/klique.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Klique-space/klique/issues"
+  },
+  "homepage": "https://github.com/Klique-space/klique#readme"
+}
