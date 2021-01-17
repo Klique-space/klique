@@ -125,7 +125,6 @@
 
           <button type="submit">Submit</button>
         </span>
-        
       </form>
       <p id="form-create-done" class="hidden">Kliqspace created!</p>
     </div>
@@ -152,19 +151,19 @@
     </div>
   </div>
 
-  <div id="group-modal" class="modal">
-    <!-- <div class="modal-content create-group">
-      <span id="close-group" class="close">&times;</span>
-      <p>Create a Group</p>
-    </div> -->
-  </div>
-
   <div id="edit-modal" class="modal">
     <div class="modal-content create-group">
       <span id="close-edit" class="close">&times;</span>
       <p>Edit profile.</p>
     </div>
   </div>
+
+  <!-- <div id="group-modal" class="modal"> -->
+  <!-- <div class="modal-content create-group">
+      <span id="close-group" class="close">&times;</span>
+      <p>Create a Group</p>
+    </div> -->
+  <!-- </div> -->
 
   <script src="js/modals.js"></script>
   <script src="js/createkliqspace.js"></script>
@@ -217,8 +216,6 @@
         } else {
           let kliqspaces;
           const userDocument = db.collection("users").doc(user.uid);
-          let hasSpaces = false;
-
           userDocument
             .get()
             .then(function (doc) {
@@ -236,7 +233,6 @@
 
           if (kliqspaces) {
             // display kliqspaces in sidebar
-            hasSpaces = true;
             const kliqspaceArea = document.querySelector(".kliqspaces");
             let kliqMembers;
             kliqspaces.forEach((kliquespaceID, i) => {
@@ -273,15 +269,7 @@
             });
 
             // Display members of first kliquespace on dashboard
-            const peopleArea = document.querySelector("#individuals-area");
-            kliqMembers.forEach((memberID) => {
-              const displayName;
-              const avatar;
-              const attributes;
-              peopleArea.innerHTML += `
-                <user-profile user-attributes='${attributes}' avatar='${avatar}' display-name='${displayName}'></user-profile>
-              `;
-            });
+            displayKliqmembers(kliqMembers);
           } else {
           }
           // Display "No current workspaces" in sidebar
@@ -301,5 +289,43 @@
         loadEl.textContent = "Error loading the Firebase SDK, check the console.";
       }
     });
+
+    function displayKliqmembers(kliqMembers) {
+      const peopleArea = document.querySelector("#individuals-area");
+      let displayName;
+      let avatar;
+      let attributes;
+
+      kliqMembers.forEach((memberID) => {
+        const usersDocument = db.collection("users");
+        userDocument
+          .doc(memberID)
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              attributes = doc.data().attributes ? doc.data().attributes : "";
+              avatar = doc.data().avatar ? doc.data().avatar : "assets/blank_profile.jpg";
+              displayName = doc.data().displayName ? doc.data().displayName : "Cool Panda";
+              console.log("Document data:", kliqspaces);
+            } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+            }
+          })
+          .catch(function (error) {
+            console.log("Error getting document:", error);
+          });
+
+        let string = "";
+        for (attribute of attributes)
+          string += attribute[0].trim() + "," + attribute[1].trim() + ";";
+
+        attributes = string.substring(0, string.length - 1);
+
+        peopleArea.innerHTML += `
+                <user-profile user-attributes='${attributes}' avatar='${avatar}' display-name='${displayName}'></user-profile>
+              `;
+      });
+    }
   </script>
 </body>

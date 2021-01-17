@@ -35,13 +35,10 @@ class Profile extends HTMLElement {
                     }
                     .kliq {
                       margin-top: 1em;
-                      margin-bottom: -1em;
-                      padding-top:0;
-                      padding-bottom:0;
+                      padding: 0.5rem 1rem;
                       background-color: #F66879;
                       color: white;
                       border-radius: 1em;
-                      width: 3em;
                       align-self: center;
                     }
                 </style>
@@ -58,7 +55,8 @@ class Profile extends HTMLElement {
                             : "Cool Panda"
                         }</p>
                         ${
-                          this.hasAttribute("user-attributes")
+                          this.hasAttribute("user-attributes") &&
+                          this.getAttribute("user-attributes") != ""
                             ? this.getAttribute("user-attributes")
                                 .split(";")
                                 .reduce((accum, element) => {
