@@ -9,7 +9,7 @@ joinForm.addEventListener("submit", (e) => {
 
   // import the database
   const db = firebase.firestore();
-  const user = firebase.auth().currentUser.uid;
+  const user = firebase.auth().currentUser;
 
   db.collection("kliqspaces")
     .where("spaceID", "==", joinSpaceID)
@@ -17,7 +17,7 @@ joinForm.addEventListener("submit", (e) => {
     .then(function (querySnapshot) {
       console.log(querySnapshot);
       let nodoc = true;
-      let document;
+      let documentID;
       querySnapshot.forEach(function (doc) {
         // doc.data() is never undefined for query doc snapshots
         nodoc = false;
@@ -25,91 +25,31 @@ joinForm.addEventListener("submit", (e) => {
         console.log(doc.id, " => ", doc.data());
       });
       if (!nodoc) {
+        console.log(user.uid);
         // add user to kliqspace
-        db.collection("cities")
+        db.collection("kliqspaces")
           .doc(documentID)
           .update({
-            users: firebase.firestore.FieldValue.arrayUnion(user.id),
+            users: firebase.firestore.FieldValue.arrayUnion(user.uid),
           });
 
         // add kliqspace to user
         user
           .updateProfile({
             displayName: displayName ? displayName : "Undefined",
-            kliqspaces: firebase.firestore.FieldValue.arrayUnion(doc.id),
+            // kliqspaces: kliqspaces ? firebase.firestore.FieldValue.arrayUnion(documentID) : [],
           })
           .then(function () {
             displayMessage(joinDoneMessage);
-            console.log(joinDoneMessage);
           })
           .catch(function (error) {
             // An error happened.
           });
       } else {
         displayMessage(joinErrorMessage);
-        console.log(joinErrorMessage);
       }
     })
     .catch(function (error) {
       console.log("Error getting documents: ", error);
     });
-
-  // db.collection("kliqspaces")
-  //   .get()
-  //   .then(function (querySnapshot) {
-  //     querySnapshot.forEach(function (doc) {
-  //       // doc.data() is never undefined for query doc snapshots
-  //       console.log(doc.id, " => ", doc.data());
-  //     });
-  //   });
-
-  // const data = db.collection("kliqspaces").where("spaceID", "==", joinSpaceID);
-  // console.log(joinSpaceID);
-
-  // data
-  //   .get()
-  //   .then(function (doc) {
-  //     if (doc.exists) {
-  //       console.log("Document data:", doc.data());
-  //     } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     }
-  //   })
-  //   .catch(function (error) {
-  //     console.log("Error getting document:", error);
-  //   });
-  // db.collection("kliqspaces")
-  //   .where("spaceID", "==", joinSpaceID)
-  //   .get()
-  //   .then(function (querySnapshot) {
-  //   console.log(joinDoneMessage);
-  //   querySnapshot.forEach(function (doc) {
-  //     // doc.data() is never undefined for query doc snapshots
-  //     console.log(doc.id, " => ", doc.data());
-
-  //     // add user to kliqspace
-  //     doc.update({
-  //       users: firebase.firestore.FieldValue.arrayUnion(user),
-  //     });
-
-  //     // add kliqspace to user
-  //     user
-  //       .updateProfile({
-  //         displayName,
-  //         kliqspaces: firebase.firestore.FieldValue.arrayUnion(doc.id),
-  //       })
-  //       .then(function () {
-  //         displayMessage(joinDoneMessage);
-  //         console.log(joinDoneMessage);
-  //       })
-  //       .catch(function (error) {
-  //         // An error happened.
-  //       });
-  //   });
-  // })
-  // .catch(function (error) {
-  //   displayMessage(joinErrorMessage);
-  //   console.log(joinErrorMessage);
-  // });
 });
