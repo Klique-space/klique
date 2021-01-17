@@ -9,7 +9,7 @@
 </head>
 <body>
     <aside class="sidebar">
-        <div class="profile">
+        <div class="self-profile">
             <img src="./assets/blank_profile.jpg" alt="Profile Picture" class="profile-picture">
             <div class="profile-info">
                 <p class="display-name">Display Name</p>
@@ -18,27 +18,30 @@
             
         </div>
         <div class="kliqspaces">
-            <h2 class="kliqspace-name">Kliqspace Name</h2>
-            <a href="#"><i class="material-icons">keyboard_arrow_left</i></a>
+            <div class="kliqspace">
+                <h2 class="kliqspace-name">Kliqspace Name</h2>
+                <a href="#"><i class="material-icons">keyboard_arrow_left</i></a>
+            </div>
+            
         </div>
         <div class="sidebar-options">
-            <button name="create-kliqspace">Create a kliqspace</button>
-            <button name="join-kliqspace">Join a kliqspace</button>
-            <button name="sign-out">Sign Out</button>           
+            <button name="create-kliqspace" style="background-color:#2B2D42;">Create a kliqspace</button>
+            <button name="join-kliqspace" style="background-color:#F66879;">Join a kliqspace</button>
+            <button name="sign-out" style="background-color:#FFFFFF; color:black;">Sign Out</button>           
         </div>
     </aside>
-    
+
     <main class="dashboard">
         <div class="dashboard-options">
             <div class="dropdown">
-                <button name="dropdown">Filter</button>
+                <button class="dashboard-btn">Filter</button>
                 <div class="dropdown-content">
                     <a href="#">Persons</a>
                     <a href="#">Groups</a>
                     <a href="#">Both</a>
                 </div>
             </div>
-            <button name="create-group">Create a Group</button>
+            <button class="dashboard-btn" style="float: right;">Create a Group</button>
         </div>
         <div class="profiles">
             <h3 class="dashboard-title">Persons</h3>
