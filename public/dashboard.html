@@ -9,6 +9,12 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/8.2.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/8.2.3/firebase-auth.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
   <!-- import custom components -->
   <script src="components/profile.js" type="text/javascript" defer></script>
 </head>
@@ -20,6 +26,7 @@
         <p class="display-name" style="margin-right: 1rem">Display Name</p>
         <a href="#">
           <i
+            id="edit-profile"
             class="material-icons noselect"
             style="height: 1.5rem; width: 1.5rem; transform: scale(0.7)"
             >create</i
@@ -40,9 +47,17 @@
       </div>
     </div>
     <div class="sidebar-options">
-      <button name="create-kliqspace" style="background-color: #2b2d42">Create a kliqspace</button>
-      <button name="join-kliqspace" style="background-color: #f66879">Join a kliqspace</button>
-      <button name="sign-out" style="background-color: #ffffff; color: black; display: inline">
+      <button id="create-kliqspace" name="create-kliqspace" style="background-color: #2b2d42">
+        Create a kliqspace
+      </button>
+      <button id="join-kliqspace" name="join-kliqspace" style="background-color: #f66879">
+        Join a kliqspace
+      </button>
+      <button
+        name="sign-out"
+        style="background-color: #ffffff; color: black; display: inline"
+        onclick="firebase.auth().signOut().then(() => {location.href = '/'})"
+      >
         Sign Out
       </button>
     </div>
@@ -60,7 +75,7 @@
         <option value="Individuals">Filter: Individuals</option>
         <option value="Groups">Filter: Groups</option>
       </select>
-      <button class="dashboard-btn" style="float: right">Create a Group</button>
+      <button id="create-group" class="dashboard-btn" style="float: right">Create a Group</button>
     </div>
     <div class="profiles">
       <div class="individuals">
@@ -79,6 +94,36 @@
       </div>
     </div>
   </main>
+
+  <!-- adding modals here :) -->
+  <div id="create-modal" class="modal create-space">
+    <div class="modal-content">
+      <span id="close-create" class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+  </div>
+
+  <div id="join-modal" class="modal join-space">
+    <div class="modal-content">
+      <span id="close-join" class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+  </div>
+
+  <div id="group-modal" class="modal create-group">
+    <div class="modal-content">
+      <span id="close-group" class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+  </div>
+
+  <div id="edit-modal" class="modal create-group">
+    <div class="modal-content">
+      <span id="close-edit" class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+  </div>
+
   <script>
     const individuals = document.querySelector(".individuals");
     const groups = document.querySelector(".groups");
@@ -100,5 +145,96 @@
           break;
       }
     };
+
+    // Get the modal
+    var createModal = document.getElementById("create-modal");
+    var joinModal = document.getElementById("join-modal");
+    var groupModal = document.getElementById("group-modal");
+    var editModal = document.getElementById("edit-modal");
+
+    // Get the button that opens the modal
+    var createBtn = document.getElementById("create-kliqspace");
+    var joinBtn = document.getElementById("join-kliqspace");
+    var editBtn = document.getElementById("edit-profile");
+    var groupBtn = document.getElementById("create-group");
+
+    // Get the <span> element that closes the modal
+    var closeBtn1 = document.getElementsByClassName("close")[0];
+    var closeBtn2 = document.getElementsByClassName("close")[1];
+    var closeBtn3 = document.getElementsByClassName("close")[2];
+    var closeBtn4 = document.getElementsByClassName("close")[3];
+
+    // When the user clicks on the button, open the modal
+    createBtn.onclick = function () {
+      createModal.style.display = "block";
+    };
+    joinBtn.onclick = function () {
+      joinModal.style.display = "block";
+    };
+    editBtn.onclick = function () {
+      editModal.style.display = "block";
+    };
+    groupBtn.onclick = function () {
+      groupModal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    closeBtn1.onclick = function () {
+      createModal.style.display = "none";
+    };
+    closeBtn2.onclick = function () {
+      joinModal.style.display = "none";
+    };
+    closeBtn3.onclick = function () {
+      groupModal.style.display = "none";
+    };
+    closeBtn4.onclick = function () {
+      editModal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == createModal) {
+        createModal.style.display = "none";
+      } else if (event.target == editModal) {
+        editModal.style.display = "none";
+      } else if (event.target == groupModal) {
+        groupModal.style.display = "none";
+      } else if (event.target == joinModal) {
+        joinModal.style.display = "none";
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const loadEl = document.querySelector("#load");
+      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      // // The Firebase SDK is initialized and available here!
+      //
+      // firebase.auth().onAuthStateChanged(user => { });
+      // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+      // firebase.firestore().doc('/foo/bar').get().then(() => { });
+      // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+      // firebase.messaging().requestPermission().then(() => { });
+      // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+      // firebase.analytics(); // call to activate
+      // firebase.analytics().logEvent('tutorial_completed');
+      // firebase.performance(); // call to activate
+      //
+      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          window.location = "index.html"; //If User is not logged in, redirect to login page
+        }
+      });
+
+      try {
+        let app = firebase.app();
+        let features = ["auth"].filter((feature) => typeof app[feature] === "function");
+        loadEl.textContent = `Firebase SDK loaded with ${features.join(", ")}`;
+      } catch (e) {
+        console.error(e);
+        loadEl.textContent = "Error loading the Firebase SDK, check the console.";
+      }
+    });
   </script>
 </body>
