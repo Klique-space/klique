@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Klique</title>
     <link rel="icon" type="image/png" href="img/logo.png" />
-    <script src="components/createNewSpace.js" type="text/javascript" defer></script>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/8.2.3/firebase-app.js"></script>
@@ -34,14 +33,15 @@
   <body>
     <header>
       <h1 class="logo">klique.</h1>
-      <button onclick="location.href='sign-up.html'">Sign Up</button>
+      <button onclick="location.href='index.html'">Sign In</button>
     </header>
 
     <main>
       <form class="sign-in-container">
-        <h2>Sign In</h2>
+        <h2 class="sign-up">Sign Up</h2>
         <input type="text" placeholder="Email" name="email" id="email" />
-        <input type="password" placeholder="Password" name="password" id="password" />
+        <input type="password" placeholder="New Password" name="password" id="password" />
+        <input type="password" placeholder="Confirm Password" name="password" id="password" />
         <button type="submit">Submit</button>
       </form>
     </main>
