@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>klique. - Dashboard</title>
+    <link rel="stylesheet" href="dashboard_styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="./assets/blank_profile.jpg" alt="Profile Picture" class="profile-picture">
+            <div class="profile-info">
+                <p class="display-name">Display Name</p>
+                <a href="#"><i class="material-icons">create</i></a>
+            </div>
+            
+        </div>
+        <div class="kliqspaces">
+            <h2 class="kliqspace-name">Kliqspace Name</h2>
+            <a href="#"><i class="material-icons">keyboard_arrow_left</i></a>
+        </div>
+        <div class="sidebar-options">
+            <button name="create-kliqspace">Create a kliqspace</button>
+            <button name="join-kliqspace">Join a kliqspace</button>
+            <button name="sign-out">Sign Out</button>           
+        </div>
+    </aside>
+    
+    <main class="dashboard">
+        <div class="dashboard-options">
+            <div class="dropdown">
+                <button name="dropdown">Filter</button>
+                <div class="dropdown-content">
+                    <a href="#">Persons</a>
+                    <a href="#">Groups</a>
+                    <a href="#">Both</a>
+                </div>
+            </div>
+            <button name="create-group">Create a Group</button>
+        </div>
+        <div class="profiles">
+            <h3 class="dashboard-title">Persons</h3>
+            <div class="profile">
+                <img src="./assets/blank_profile.jpg" alt="Profile Picture" class="profile-picture">
+                <p class="display-name">Display Name</p>
+                <!--Maybe list skills here-->
+            </div>
+            <h3 class="dashboard-title">Groups</h3>
+            <div class="profile">
+                <img src="./assets/blank_profile.jpg" alt="Profile Picture" class="profile-picture">
+                <p class="display-name">Display Name</p>
+                <!--Maybe list skills here-->
+            </div>
+        </div>
+    </main>
+</body>

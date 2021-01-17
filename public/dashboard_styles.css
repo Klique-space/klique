@@ -1,0 +1,57 @@
+body {
+  display: flex;
+  font-family: "Poppins";
+  margin: 0;
+  height: 100vh;
+}
+.sidebar {
+  flex: 1;
+  background-image: linear-gradient(#2b2d42, #fc4949);
+}
+.kliqspaces {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.sidebar-options {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: left;
+}
+.sidebar button {
+  margin: 1em;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: left;
+}
+.profile-info {
+  display: flex;
+  flex-direction: row;
+}
+.profile img {
+  border-radius: 50%;
+}
+button {
+  border-radius: 30px;
+  border: none;
+  color: #ffffff;
+}
+.dashboard {
+  flex: 4;
+  background-image: linear-gradient(90deg, #fc4949, #ffffff);
+}
+.profile-picture {
+  width: 7em;
+  height: 7em;
+}
+a i {
+  color: #ffffff;
+  height: 2em;
+  width: 2em;
+  float: right;
+}
