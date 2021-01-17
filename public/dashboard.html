@@ -132,6 +132,18 @@
     <div class="modal-content join-space">
       <span id="close-join" class="close">&times;</span>
       <p>Join a kliqspace.</p>
+      <form id="join-kliqspace-form">
+        <input type="text" id="join-kliqspace-id" name="kliqspace-id" placeholder="kliqspace ID" />
+        <input
+          type="text"
+          id="join-kliqspace-display"
+          name="kliqspace-display"
+          placeholder="Display Name"
+        />
+        <button type="submit">Submit</button>
+      </form>
+      <p id="form-join-done" class="hidden">Kliqspace joined!</p>
+      <p id="form-join-error" class="hidden">Error: this kliqspace does not exist</p>
     </div>
   </div>
 
@@ -151,6 +163,7 @@
 
   <script src="js/modals.js"></script>
   <script src="js/createkliqspace.js"></script>
+  <script src="js/joinkliqspace.js"></script>
 
   <script>
     const individuals = document.querySelector(".individuals");

@@ -13,26 +13,27 @@ form.addEventListener("submit", (e) => {
   const db = firebase.firestore();
   const owner = firebase.auth().currentUser.uid;
 
-  db.collection("kliquespaces")
+  db.collection("kliqspaces")
     .add({
       spaceName,
       min,
       max,
       owner,
       spaceID: spaceID.value,
+      users: [],
     })
     .then(function (docRef) {
-      displayMessage();
+      displayMessage(doneMessage);
     })
     .catch(function (error) {
       console.error("Error adding document: ", error);
     });
 });
 
-function displayMessage() {
-  doneMessage.classList.remove("hidden");
+function displayMessage(message) {
+  message.classList.remove("hidden");
   setTimeout(function () {
-    doneMessage.classList.add("hidden");
+    message.classList.add("hidden");
   }, 5000);
 }
 
