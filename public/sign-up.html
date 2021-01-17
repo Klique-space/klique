@@ -84,6 +84,7 @@
             db.collection("users")
               .doc(user.uid)
               .set({
+                attributes: [],
                 kliqspaces: [],
                 kliqers: [],
                 kliqing: [],

@@ -85,14 +85,14 @@
     <div class="profiles">
       <div class="individuals">
         <h3 class="dashboard-title">Individuals</h3>
-        <div class="profile-group">
+        <div class="profile-group" id="individuals-area">
           <user-profile user-attributes="skills,none;o,1"></user-profile>
           <user-profile></user-profile>
         </div>
       </div>
       <div class="groups">
         <h3 class="dashboard-title">Groups</h3>
-        <div class="profile-group">
+        <div class="profile-group" id="groups-area">
           <user-profile></user-profile>
           <user-profile></user-profile>
         </div>
@@ -208,9 +208,85 @@
       // firebase.performance(); // call to activate
       //
       // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+      var db = firebase.firestore();
+
       firebase.auth().onAuthStateChanged((user) => {
         if (!user) {
           window.location = "index.html"; //If User is not logged in, redirect to login page
+        } else {
+          let kliqspaces;
+          const userDocument = db.collection("users").doc(user.uid);
+          let hasSpaces = false;
+
+          userDocument
+            .get()
+            .then(function (doc) {
+              if (doc.exists) {
+                kliqspaces = doc.data().kliqspaces;
+                console.log("Document data:", kliqspaces);
+              } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+              }
+            })
+            .catch(function (error) {
+              console.log("Error getting document:", error);
+            });
+
+          if (kliqspaces) {
+            // display kliqspaces in sidebar
+            hasSpaces = true;
+            const kliqspaceArea = document.querySelector(".kliqspaces");
+            let kliqMembers;
+            kliqspaces.forEach((kliquespaceID, i) => {
+              const kliqDocument = db.collection("kliqspaces").doc(kliquespaceID);
+              let kliqTitle;
+
+              kliqDocument
+                .get()
+                .then(function (doc) {
+                  if (doc.exists) {
+                    kliqTitle = doc.data().spaceName ? doc.data().spaceName : "Untitled Space";
+                    console.log("Document data:", kliqTitle);
+                    if (i == 1) kliqMembers = doc.data().users;
+                  } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                  }
+                })
+                .catch(function (error) {
+                  console.log("Error getting document:", error);
+                });
+              kliqspaceArea.innerHTML += `
+              <div class='kliqspace'>
+                <div class='kliqspace-title'>
+                  <i
+                    class='material-icons noselect'
+                    style='height: 1.5rem; width: 1.5rem; transform: scale(0.9)'
+                  >
+                    keyboard_arrow_right
+                  </i>
+                  <h2 class='kliqspace-name noselect'>${kliqTitle}</h2>
+                </div>
+              </div>`;
+            });
+
+            // Display members of first kliquespace on dashboard
+            const peopleArea = document.querySelector("#individuals-area");
+            kliqMembers.forEach((memberID) => {
+              const displayName;
+              const avatar;
+              const attributes;
+              peopleArea.innerHTML += `
+                <user-profile user-attributes='${attributes}' avatar='${avatar}' display-name='${displayName}'></user-profile>
+              `;
+            });
+          } else {
+          }
+          // Display "No current workspaces" in sidebar
+
+          // Display "join your first kliquespace" on dashboard
         }
       });
 
