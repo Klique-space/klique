@@ -2,11 +2,100 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-h1 {
-  font-family: 'poppins';
-  font-size: 40px;
+body {
+  background: linear-gradient(to left, #ef233ba7, #d90429);
+}
+
+header {
+  background: white;
+  min-height: 10vh;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  font-size: 50px;
   font-weight: bold;
+  color: #ef233c;
+  margin: 0 1rem;
+  flex: 1;
 }
 
+header button {
+  font-size: 20px;
+  font-weight: 300;
+  background-color: #2b2d42;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 3rem;
+  color: white;
+  outline: none;
+  margin: 0 1rem;
+  cursor: pointer;
+}
+
+header button:hover {
+  background-color: #4f5279;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  flex-direction: column;
+}
+
+.sign-in-container {
+  background: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  min-width: 50vw;
+  min-height: 50vh;
+  border-radius: 5rem;
+  padding: 2rem;
+  text-align: center;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.283);
+}
+
+.sign-up {
+  padding-bottom: 1rem;
+}
+
+.sign-in-container h2 {
+  font-size: 32px;
+}
+
+.sign-in-container input {
+  background-color: #f1f1f1;
+  font-size: 1.2rem;
+  font-weight: 200;
+  width: 40vw;
+  border: none;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 1rem 1.5rem;
+}
+
+.sign-in-container button {
+  font-size: 20px;
+  font-weight: 300;
+  background-color: #8d99ae;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 3rem;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+
+.sign-in-container button:hover {
+  background-color: #b1bdd3;
+}
