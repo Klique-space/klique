@@ -227,13 +227,13 @@ a i {
 
 /* Modal Buttons */
 
-#create-kliqspace-buttons {
+.kliqspace-buttons {
   width: 100%;
   align-content: center;
 }
 
-#create-kliqspace-buttons button {
-  margin: 0 1em;
+.kliqspace-buttons button {
+  margin: 1em;
 }
 .modal-content button {
   background-color: #2b2d42;
