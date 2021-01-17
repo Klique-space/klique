@@ -1,50 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   font-family: "Poppins";
   color: #ffffff;
-  margin: 0;
   height: 100vh;
+  background: linear-gradient(90deg, #fc4949, #ffffff);
 }
 
 /* Sidebar */
 .sidebar {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 300px;
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black */
+  overflow-x: hidden;
   flex: 1;
   background-image: linear-gradient(#2b2d42, #fc4949);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 .kliqspaces {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  flex: 1;
 }
+
 .kliqspace {
   border-top: 1px solid rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   display: flex;
   width: 100%;
+  padding: 1em 2em;
+  align-items: center;
+  justify-content: start;
 }
+
 .kliqspace-name {
-  margin: 1em;
+  font-size: 1em;
 }
+
 .sidebar-options {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   align-content: left;
-  padding-bottom: 0%;
 }
 .sidebar button {
   margin: 1em;
   font-size: 1em;
-  padding: 0.5em;
+  padding: 0.5em 2em;
 }
 .self-profile {
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: left;
+  align-items: center;
   padding: 2em;
 }
 
 .profile-info {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }
 .profile-picture {
   border-radius: 50%;
@@ -97,8 +124,9 @@ button {
   background-color: #ffffff;
 }
 .dashboard {
+  margin-left: 300px;
   flex: 4;
-  background-image: linear-gradient(90deg, #fc4949, #ffffff);
+  /* background-image: linear-gradient(90deg, #fc4949, #ffffff); */
 }
 .profiles {
   display: inline-block;

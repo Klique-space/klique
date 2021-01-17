@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Klique</title>
+    <title>klique. - Sign-Up</title>
     <link rel="icon" type="image/png" href="img/logo.png" />
 
     <!-- update the version number as needed -->
@@ -77,11 +77,12 @@
         // call firebase create user
         firebase
           .auth()
-          .createUserWithEmailAndPassword(email, password)
+          .createUserWithEmailAndPassword(email.value, password.value)
           .then((user) => {
             // undisplay loading screen
             console.log("User is signed up!");
             // go to the dashboard
+            location.href = "dashboard.html";
           })
           .catch((error) => {
             var errorCode = error.code;
