@@ -78,6 +78,22 @@
           .then((user) => {
             // undisplay loading screen
             console.log("User is signed up!");
+            const db = firebase.firestore();
+            user = firebase.auth().currentUser;
+
+            db.collection("users")
+              .doc(user.uid)
+              .set({
+                kliqspaces: [],
+                kliqers: [],
+                kliqing: [],
+                mutuals: [],
+              })
+              .then(function (docRef) {})
+              .catch(function (error) {
+                console.error("Error adding document: ", error);
+              });
+
             // go to the dashboard
             location.href = "dashboard.html";
           })
