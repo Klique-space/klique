@@ -36,11 +36,7 @@ joinForm.addEventListener("submit", (e) => {
         // add kliqspace to user
         db.collection("users")
           .add({
-            userid: user.uid,
-            kliqspaces: [],
-            kliqers: [],
-            kliqing: [],
-            mutuals: [],
+            kliqspaces: firebase.firestore.FieldValue.arrayUnion(documentID),
           })
           .then(function (docRef) {})
           .catch(function (error) {
