@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="dashboard_styles.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+
+  <!-- import custom components -->
+  <script src="components/profile.js" type="text/javascript" defer></script>
 </head>
 <body>
   <aside class="sidebar">
@@ -15,8 +18,10 @@
       <img src="./assets/blank_profile.jpg" alt="Profile Picture" class="profile-picture" />
       <div class="profile-info">
         <p class="display-name" style="margin-right: 1rem">Display Name</p>
-        <a href="#"
-          ><i class="material-icons" style="height: 1.5rem; width: 1.5rem; transform: scale(0.7)"
+        <a href="#">
+          <i
+            class="material-icons noselect"
+            style="height: 1.5rem; width: 1.5rem; transform: scale(0.7)"
             >create</i
           ></a
         >
@@ -24,12 +29,14 @@
     </div>
     <div class="kliqspaces">
       <div class="kliqspace">
-        <a href="#"
-          ><i class="material-icons" style="height: 1.5rem; width: 1.5rem; transform: scale(0.9)"
+        <div class="kliqspace-title">
+          <i
+            class="material-icons noselect"
+            style="height: 1.5rem; width: 1.5rem; transform: scale(0.9)"
             >keyboard_arrow_right</i
-          ></a
-        >
-        <h2 class="kliqspace-name">Kliqspace Name</h2>
+          >
+          <h2 class="kliqspace-name noselect">Kliqspace Name</h2>
+        </div>
       </div>
     </div>
     <div class="sidebar-options">
@@ -43,29 +50,55 @@
 
   <main class="dashboard">
     <div class="dashboard-options">
-      <div class="dropdown">
-        <button class="dashboard-btn">Filter</button>
-        <div class="dropdown-content">
-          <a href="#">Persons</a>
-          <a href="#">Groups</a>
-          <a href="#">Both</a>
-        </div>
-      </div>
+      <select
+        class="dashboard-btn dropdown-menu"
+        name="dropdown"
+        id="dropdown"
+        onchange="filterItems(this.selectedIndex)"
+      >
+        <option value="No filters">No filters</option>
+        <option value="Individuals">Filter: Individuals</option>
+        <option value="Groups">Filter: Groups</option>
+      </select>
       <button class="dashboard-btn" style="float: right">Create a Group</button>
     </div>
     <div class="profiles">
-      <h3 class="dashboard-title">Persons</h3>
-      <div class="profile">
-        <img src="./assets/blank_profile.jpg" alt="Profile Picture" class="profile-picture" />
-        <p class="display-name">Display Name</p>
-        <!--Maybe list skills here-->
+      <div class="individuals">
+        <h3 class="dashboard-title">Individuals</h3>
+        <div class="profile-group">
+          <user-profile user-attributes="skills,none;o,1"></user-profile>
+          <user-profile></user-profile>
+        </div>
       </div>
-      <h3 class="dashboard-title">Groups</h3>
-      <div class="profile">
-        <img src="./assets/blank_profile.jpg" alt="Profile Picture" class="profile-picture" />
-        <p class="display-name">Display Name</p>
-        <!--Maybe list skills here-->
+      <div class="groups">
+        <h3 class="dashboard-title">Groups</h3>
+        <div class="profile-group">
+          <user-profile></user-profile>
+          <user-profile></user-profile>
+        </div>
       </div>
     </div>
   </main>
+  <script>
+    const individuals = document.querySelector(".individuals");
+    const groups = document.querySelector(".groups");
+    const filterItems = (index) => {
+      switch (index) {
+        case 0:
+          individuals.classList.remove("hidden");
+          groups.classList.remove("hidden");
+          break;
+        case 1:
+          individuals.classList.remove("hidden");
+          groups.classList.add("hidden");
+          break;
+        case 2:
+          individuals.classList.add("hidden");
+          groups.classList.remove("hidden");
+          break;
+        default:
+          break;
+      }
+    };
+  </script>
 </body>

@@ -22,10 +22,11 @@ header {
   color: #ef233c;
   margin: 0 1rem;
   flex: 1;
+  cursor: pointer;
 }
 
 header button {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 300;
   background-color: #2b2d42;
   border: none;

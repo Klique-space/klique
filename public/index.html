@@ -2,127 +2,68 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>klique. - Sign-In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>klique.</title>
     <link rel="icon" type="image/png" href="img/logo.png" />
-    <!-- <script src="components/createNewSpace.js" type="text/javascript" defer></script> -->
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/8.2.3/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/8.2.3/firebase-auth.js"></script>
-    <script defer src="/__/firebase/8.2.3/firebase-database.js"></script>
-    <script defer src="/__/firebase/8.2.3/firebase-firestore.js"></script>
-    <script defer src="/__/firebase/8.2.3/firebase-functions.js"></script>
-    <script defer src="/__/firebase/8.2.3/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/8.2.3/firebase-storage.js"></script>
-    <script defer src="/__/firebase/8.2.3/firebase-analytics.js"></script>
-    <script defer src="/__/firebase/8.2.3/firebase-remote-config.js"></script>
-    <script defer src="/__/firebase/8.2.3/firebase-performance.js"></script>
+    <link rel="stylesheet" href="home.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-    <link rel="stylesheet" href="./styles.css" />
   </head>
+
   <body>
     <header>
-      <h1 class="logo noselect">klique.</h1>
+      <h1 class="logo noselect" onclick="location.href='#'">klique.</h1>
+      <button class="sign-in" onclick="location.href='sign-in.html'">Sign In</button>
       <button onclick="location.href='sign-up.html'">Sign Up</button>
     </header>
 
-    <main>
-      <form class="sign-in-container">
-        <h2 class="noselect">Sign In</h2>
-        <input type="text" placeholder="Email" name="email" id="email" />
-        <input type="password" placeholder="Password" name="password" id="password" />
-        <p class="error"></p>
-        <button type="submit">Submit</button>
-      </form>
-    </main>
+    <div class="main">
+      <main>
+        <h2 class="header">There’s a better way to create groups!</h2>
+        <button onclick="location.href='sign-up.html'">Sign up for free!</button>
+        <img class="heroimg" src="img/heroimg.png" alt="People sitting on table" />
+        <div class="glass"></div>
+        <p class="hero-text">
+          Create Kliquespaces for your students, club members, or classroom. Kliquespaces have a
+          unique ID that can be used by participants to join.
+          <br /><br />
+          In a Kliquespace, you can form groups for learning and creative projects!
+        </p>
+        <h3 class="title" style="align-self: start">About Klique</h3>
+        <div class="line" style="transform: translateX(-15vw)"></div>
+        <p>
+          Klique is a startup created by four university students for the HackEd 2021 hackathon. Our
+          mission is to make forming virtual groups a simple and efficient process, while meeting
+          the goals of mentors and students alike.
+        </p>
+        <h3 class="title" style="align-self: flex-end">Our Team</h3>
+        <div class="line" style="transform: translateX(15vw)"></div>
+        <div class="members">
+          <div class="member">
+            <img src="assets/blank_profile.jpg" alt="" />
+            <p>Nadeen</p>
+          </div>
+          <div class="member">
+            <img src="assets/blank_profile.jpg" alt="" />
+            <p>Hannah</p>
+          </div>
+          <div class="member">
+            <img src="assets/blank_profile.jpg" alt="" />
+            <p>Saba</p>
+          </div>
+          <div class="member">
+            <img src="assets/blank_profile.jpg" alt="" />
+            <p>Helen</p>
+          </div>
+        </div>
+      </main>
+    </div>
 
-    <script>
-      const form = document.querySelector("form");
-      const email = document.querySelector("#email");
-      const password = document.querySelector("#password");
-      const errorSection = document.querySelector(".error");
-
-      form.addEventListener("submit", function (e) {
-        // clear error section
-        e.preventDefault();
-        errorSection.innerHTML = "";
-
-        // display loading screen
-
-        // call firebase create user
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value)
-          .then((user) => {
-            // undisplay loading screen
-            console.log("User is signed in!");
-            // go to the dashboard
-            location.href = "dashboard.html";
-          })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode == "auth/user-disabled") {
-              errorSection.innerHTML = "This user has been disabled.";
-            } else if (errorCode == "auth/user-not-found") {
-              errorSection.innerHTML = "User does not exist.";
-            } else if (errorCode == "auth/invalid-email") {
-              errorSection.innerHTML = "This email is invalid.";
-            } else if (errorCode == "auth/invalid-password") {
-              errorSection.innerHTML = "The password is incorrect.";
-            } else {
-              errorSection.innerHTML = errorMessage;
-            }
-          });
-      });
-
-      document.addEventListener("DOMContentLoaded", function () {
-        const loadEl = document.querySelector("#load");
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = [
-            "auth",
-            "database",
-            "firestore",
-            "functions",
-            "messaging",
-            "storage",
-            "analytics",
-            "remoteConfig",
-            "performance",
-          ].filter((feature) => typeof app[feature] === "function");
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(", ")}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = "Error loading the Firebase SDK, check the console.";
-        }
-      });
-    </script>
+    <footer></footer>
   </body>
 </html>
