@@ -32,21 +32,71 @@
   </head>
   <body>
     <header>
-      <h1 class="logo">klique.</h1>
+      <h1 class="logo noselect">klique.</h1>
       <button onclick="location.href='/'">Sign In</button>
     </header>
 
     <main>
-      <form class="sign-in-container">
-        <h2 class="sign-up">Sign Up</h2>
+      <form class="sign-in-container" onsubmit="signup()">
+        <h2 class="sign-up noselect">Sign Up</h2>
         <input type="text" placeholder="Email" name="email" id="email" />
         <input type="password" placeholder="New Password" name="password" id="password" />
-        <input type="password" placeholder="Confirm Password" name="password" id="password" />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          name="password"
+          id="confirmpassword"
+        />
+        <p class="error"></p>
         <button type="submit">Submit</button>
       </form>
     </main>
 
     <script>
+      const form = document.querySelector("form");
+      const email = document.querySelector("#email");
+      const password = document.querySelector("#password");
+      const confirmpassword = document.querySelector("#confirmpassword");
+      const errorSection = document.querySelector(".error");
+
+      form.addEventListener("submit", function (e) {
+        // clear error section
+        e.preventDefault();
+        errorSection.innerHTML = "";
+
+        // check that passwords match
+        if (!(password.value === confirmpassword.value)) {
+          errorSection.innerHTML = "Passwords don't match. Try again!";
+          password.value = "";
+          confirmpassword.value = "";
+          return;
+        }
+
+        // display loading screen
+
+        // call firebase create user
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((user) => {
+            // undisplay loading screen
+            console.log("User is signed up!");
+            // go to the dashboard
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode == "auth/weak-password") {
+              errorSection.innerHTML = "The password is too weak.";
+            } else if (errorCode == "auth/email-already-in-use") {
+              errorSection.innerHTML = "This email is already is use.";
+            } else if (errorCode == "auth/invalid-email") {
+              errorSection.innerHTML = "This email is invalid.";
+            } else {
+              errorSection.innerHTML = errorMessage;
+            }
+          });
+      });
       document.addEventListener("DOMContentLoaded", function () {
         const loadEl = document.querySelector("#load");
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
