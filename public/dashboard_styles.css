@@ -194,6 +194,10 @@ a i {
 
 /* Modal Content/Box */
 .modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 2rem;
@@ -201,6 +205,7 @@ a i {
   width: 50vw; /* Could be more or less, depending on screen size */
   height: 50vh;
   border-radius: 2rem;
+  position: relative;
 }
 
 .modal-content h3 {
@@ -211,12 +216,25 @@ a i {
 }
 .modal-content span {
   display: flex;
-  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   justify-content: center;
 }
+
+.modal-content p {
+  float: right;
+}
+
 /* Modal Buttons */
 
+#create-kliqspace-buttons {
+  width: 100%;
+  align-content: center;
+}
+
+#create-kliqspace-buttons button {
+  margin: 0 1em;
+}
 .modal-content button {
   background-color: #2b2d42;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -257,7 +275,9 @@ input[type="text"] {
   color: black;
   font-size: 28px;
   font-weight: bold;
-  float: right;
+  position: absolute;
+  top: 1em;
+  right: 1em;
 }
 
 .close:hover,
@@ -268,18 +288,12 @@ input[type="text"] {
 }
 
 .create-space {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
   justify-content: center;
   background-color: #f66879;
   box-sizing: border-box;
 }
 
 .join-space {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
   justify-content: center;
   background-color: #2b2d42;
   box-sizing: border-box;

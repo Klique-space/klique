@@ -120,9 +120,12 @@
         </span>
 
         <input type="text" id="space-id" />
-        <button type="button" onclick="copyID()">Copy ID</button>
+        <span id="create-kliqspace-buttons">
+          <button type="button" onclick="copyID()">Copy ID</button>
 
-        <button type="submit">Submit</button>
+          <button type="submit">Submit</button>
+        </span>
+        
       </form>
       <p id="form-create-done" class="hidden">Kliqspace created!</p>
     </div>
@@ -148,10 +151,10 @@
   </div>
 
   <div id="group-modal" class="modal">
-    <div class="modal-content create-group">
+    <!-- <div class="modal-content create-group">
       <span id="close-group" class="close">&times;</span>
       <p>Create a Group</p>
-    </div>
+    </div> -->
   </div>
 
   <div id="edit-modal" class="modal">

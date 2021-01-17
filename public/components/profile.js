@@ -33,6 +33,17 @@ class Profile extends HTMLElement {
                       color: #DEDEDE;
                       font-size: 0.8rem;
                     }
+                    .kliq {
+                      margin-top: 1em;
+                      margin-bottom: -1em;
+                      padding-top:0;
+                      padding-bottom:0;
+                      background-color: #F66879;
+                      color: white;
+                      border-radius: 1em;
+                      width: 3em;
+                      align-self: center;
+                    }
                 </style>
                 <div class="profile">
                     <img alt="Profile Picture" src=${
@@ -60,6 +71,7 @@ class Profile extends HTMLElement {
                             : "<p class='skills'>Nothing to show (yet!)</p>"
                         }
                     </div>
+                    <button class="kliq">kliq!</button>
                 </div>
             </div>
           `;
