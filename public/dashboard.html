@@ -10,9 +10,14 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
 
   <!-- update the version number as needed -->
+
   <script defer src="/__/firebase/8.2.3/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
   <script defer src="/__/firebase/8.2.3/firebase-auth.js"></script>
+
+  <script defer src="/__/firebase/8.2.3/firebase-database.js"></script>
+  <script defer src="/__/firebase/8.2.3/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/8.2.3/firebase-functions.js"></script>
   <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
   <!-- import custom components -->
@@ -96,33 +101,56 @@
   </main>
 
   <!-- adding modals here :) -->
-  <div id="create-modal" class="modal create-space">
-    <div class="modal-content">
-      <span id="close-create" class="close">&times;</span>
-      <p>Some text in the Modal..</p>
+  <div id="create-modal" class="modal">
+    <div class="modal-content create-space">
+      <p id="close-create" class="close">&times;</p>
+      <h3>Create a kliqspace.</h3>
+      <form id="create-kliqspace-form">
+        <input
+          type="text"
+          id="new-kliqspace-name"
+          name="kliqspace-name"
+          placeholder="kliqspace name"
+        />
+        <span>
+          <p>Group Range</p>
+          <input type="number" id="new-kliqspace-min" name="kliqspace-min" min="1" />
+          <p>-</p>
+          <input type="number" id="new-kliqspace-max" name="kliqspace-max" min="2" />
+        </span>
+
+        <input type="text" id="space-id" />
+        <button type="button" onclick="copyID()">Copy text</button>
+
+        <button type="submit">Submit</button>
+      </form>
+      <p id="form-create-done" class="hidden">Kliqspace created!</p>
     </div>
   </div>
 
-  <div id="join-modal" class="modal join-space">
-    <div class="modal-content">
+  <div id="join-modal" class="modal">
+    <div class="modal-content join-space">
       <span id="close-join" class="close">&times;</span>
-      <p>Some text in the Modal..</p>
+      <p>Join a kliqspace.</p>
     </div>
   </div>
 
-  <div id="group-modal" class="modal create-group">
-    <div class="modal-content">
+  <div id="group-modal" class="modal">
+    <div class="modal-content create-group">
       <span id="close-group" class="close">&times;</span>
-      <p>Some text in the Modal..</p>
+      <p>Create a group.</p>
     </div>
   </div>
 
-  <div id="edit-modal" class="modal create-group">
-    <div class="modal-content">
+  <div id="edit-modal" class="modal">
+    <div class="modal-content create-group">
       <span id="close-edit" class="close">&times;</span>
-      <p>Some text in the Modal..</p>
+      <p>Edit profile.</p>
     </div>
   </div>
+
+  <script src="js/modals.js"></script>
+  <script src="js/createkliqspace.js"></script>
 
   <script>
     const individuals = document.querySelector(".individuals");
@@ -143,65 +171,6 @@
           break;
         default:
           break;
-      }
-    };
-
-    // Get the modal
-    var createModal = document.getElementById("create-modal");
-    var joinModal = document.getElementById("join-modal");
-    var groupModal = document.getElementById("group-modal");
-    var editModal = document.getElementById("edit-modal");
-
-    // Get the button that opens the modal
-    var createBtn = document.getElementById("create-kliqspace");
-    var joinBtn = document.getElementById("join-kliqspace");
-    var editBtn = document.getElementById("edit-profile");
-    var groupBtn = document.getElementById("create-group");
-
-    // Get the <span> element that closes the modal
-    var closeBtn1 = document.getElementsByClassName("close")[0];
-    var closeBtn2 = document.getElementsByClassName("close")[1];
-    var closeBtn3 = document.getElementsByClassName("close")[2];
-    var closeBtn4 = document.getElementsByClassName("close")[3];
-
-    // When the user clicks on the button, open the modal
-    createBtn.onclick = function () {
-      createModal.style.display = "block";
-    };
-    joinBtn.onclick = function () {
-      joinModal.style.display = "block";
-    };
-    editBtn.onclick = function () {
-      editModal.style.display = "block";
-    };
-    groupBtn.onclick = function () {
-      groupModal.style.display = "block";
-    };
-
-    // When the user clicks on <span> (x), close the modal
-    closeBtn1.onclick = function () {
-      createModal.style.display = "none";
-    };
-    closeBtn2.onclick = function () {
-      joinModal.style.display = "none";
-    };
-    closeBtn3.onclick = function () {
-      groupModal.style.display = "none";
-    };
-    closeBtn4.onclick = function () {
-      editModal.style.display = "none";
-    };
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target == createModal) {
-        createModal.style.display = "none";
-      } else if (event.target == editModal) {
-        editModal.style.display = "none";
-      } else if (event.target == groupModal) {
-        groupModal.style.display = "none";
-      } else if (event.target == joinModal) {
-        joinModal.style.display = "none";
       }
     };
 
@@ -229,7 +198,9 @@
 
       try {
         let app = firebase.app();
-        let features = ["auth"].filter((feature) => typeof app[feature] === "function");
+        let features = ["auth", "database", "firestore", "functions"].filter(
+          (feature) => typeof app[feature] === "function"
+        );
         loadEl.textContent = `Firebase SDK loaded with ${features.join(", ")}`;
       } catch (e) {
         console.error(e);
