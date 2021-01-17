@@ -34,6 +34,18 @@ joinForm.addEventListener("submit", (e) => {
           });
 
         // add kliqspace to user
+        db.collection("users")
+          .add({
+            userid: user.uid,
+            kliqspaces: [],
+            kliqers: [],
+            kliqing: [],
+            mutuals: [],
+          })
+          .then(function (docRef) {})
+          .catch(function (error) {
+            console.error("Error adding document: ", error);
+          });
         user
           .updateProfile({
             displayName: displayName ? displayName : "Undefined",
